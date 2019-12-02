@@ -9,6 +9,9 @@
   "engines": {
     "node": "12.x"
   },
+  "scripts": {
+    "test": "echo \"Dummy Test\" && exit 0"
+  },
   "dependencies": {
     "next": "^9.1.4",
     "react": "^16.12.0",
