@@ -1,0 +1,17 @@
+{
+  "name": "gh-actions-example-with-zeit-nextjs-and-now",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:noriaki/gh-actions-example-with-zeit-nextjs-and-now.git",
+  "author": "Noriaki Uchiyama <uchiyama.noriaki@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "next": "^9.1.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
