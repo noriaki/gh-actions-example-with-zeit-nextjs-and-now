@@ -2,7 +2,7 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-name: Test and Deploy with PR number alias
+name: Test and Deploy with PR number alias and comment apps URL
 
 jobs:
   test:
@@ -68,3 +68,21 @@ jobs:
           --token ${ZEIT_TOKEN}
           `cat ${HOME}/deployment-url.txt`
           ${{ github.event.repository.name }}-pr-${{ github.event.number }}.now.sh
+
+  post_comment_review_app_url:
+    name: Post comment that review app URL when PR opened
+    runs-on: ubuntu-latest
+    needs: deploy_to_zeit_now_staging
+
+    steps:
+      - name: Post comment review app URL by GitHub API
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        run: >
+          curl
+          -X POST
+          -H "Authorization: token $GITHUB_TOKEN"
+          -H "Accept: application/vnd.github.v3+json"
+          --data "{ \"body\": \"Review-App was deployed.\nhttps://${{ github.event.repository.name }}-pr-${{ github.event.number }}.now.sh\" }"
+          ${{ github.event.pull_request.comments_url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
